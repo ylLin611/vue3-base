@@ -19,6 +19,7 @@
   "dependencies": {
     "@iconify-json/carbon": "^1.2.4",
     "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
     "element-plus": "^2.8.8",
     "pinia": "^2.2.6",
     "qs": "^6.13.1",
@@ -43,6 +44,7 @@
     "mockjs": "^1.1.0",
     "npm-run-all2": "^7.0.1",
     "prettier": "^3.3.3",
+    "sass": "^1.81.0",
     "typescript": "~5.6.3",
     "unocss": "^0.64.1",
     "unplugin-auto-import": "^0.18.5",

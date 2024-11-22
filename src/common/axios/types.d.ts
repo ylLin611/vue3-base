@@ -28,8 +28,14 @@ export default class Http {
     method: RequestMethods,
     url: string,
     param?: AxiosRequestConfig,
-    axiosConfig?: HttpRequestConfig
+    axiosConfig?: HttpRequestConfig,
   ): Promise<T>
   post<T, P>(url: string, params?: P, config?: HttpRequestConfig): Promise<T>
   get<T, P>(url: string, params?: P, config?: HttpRequestConfig): Promise<T>
+}
+
+export interface IHttpRes<T> {
+  code: number
+  data: T
+  message: string
 }

@@ -28,6 +28,7 @@ export default [
       '@typescript-eslint/no-explicit-any': 'off',
       'no-unused-expressions': 'off',
       '@typescript-eslint/no-unused-expressions': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
     },
   },
 ]
