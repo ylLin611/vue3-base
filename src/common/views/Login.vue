@@ -104,7 +104,7 @@ const handleLogin = () => {
   height: 56px;
 }
 :deep(.el-input__wrapper) {
-  box-shadow: none;
+  box-shadow: none !important;
   background-color: transparent;
 }
 </style>
