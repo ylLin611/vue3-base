@@ -26,8 +26,8 @@ export default [
     },
   },
   {
-    url: '/api/login',
-    method: 'post',
+    url: '/api/getInfo',
+    method: 'get',
     response: () => {
       return {
         code: 200,
