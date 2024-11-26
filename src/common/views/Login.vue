@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { loginApi } from '../service/login.service'
+import useUserStore from '../stores/user.store'
 
 const form = reactive<{
   username?: string
@@ -87,13 +87,26 @@ const rules = reactive({
 })
 
 const handleGetCaptcha = () => {}
+const route = useRoute()
+const router = useRouter()
 const handleLogin = () => {
-  formRef.value?.validate(async (valid: boolean) => {
+  formRef.value?.validate((valid: boolean) => {
     if (valid) {
-      const res = await loginApi(form)
-      if (res?.code === 200) {
-        console.log(res.data.token)
-      }
+      useUserStore()
+        .login(form)
+        .then(() => {
+          const query = route.query
+          const otherQueryParams = Object.keys(query).reduce((acc, cur) => {
+            if (cur !== 'redirect') {
+              acc[cur] = query[cur]
+            }
+            return acc
+          }, {})
+          router.push({ path: (query.redirect as string) || '/', query: otherQueryParams })
+        })
+        .catch(() => {
+          // 验证码重置
+        })
     }
   })
 }

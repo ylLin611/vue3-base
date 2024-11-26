@@ -1,6 +1,10 @@
 import router, { constantRoutes, dynamicRoutes } from '../router'
 import { getRoutesApi } from '../service/login.service'
-import { clonedeep } from 'lodash-es'
+import { cloneDeep } from 'lodash-es'
+import Layout from '@/layout/Layout.vue'
+import ParentView from '@/layout/components/ParentView.vue'
+import InnerLink from '@/layout/components/InnerLink.vue'
+import auth from '../plugins/auth'
 
 // 匹配views里面所有的.vue文件
 const modules = import.meta.glob('./../../views/**/*.vue')
@@ -8,7 +12,7 @@ const modules = import.meta.glob('./../../views/**/*.vue')
 const usePermissionStore = defineStore('permission', () => {
   const routes = ref([])
   const addRoutes = ref([])
-  const defaultRoutes = ref([])
+  const defaultRoutes = ref<any>([])
   const topbarRouters = ref([])
   const sidebarRouters = ref([])
   const setRoutes = (routes) => {
@@ -27,13 +31,13 @@ const usePermissionStore = defineStore('permission', () => {
     sidebarRouters.value = routes
   }
 
-  const generateRoutes = (roles) => {
+  const generateRoutes = () => {
     return new Promise(async (resolve, reject) => {
       const res = await getRoutesApi()
       if (res?.code === 200) {
-        const sdata = clonedeep(res.data)
-        const rdata = clonedeep(res.data)
-        const defaultData = clonedeep(res.data)
+        const sdata = cloneDeep(res.data)
+        const rdata = cloneDeep(res.data)
+        const defaultData = cloneDeep(res.data)
         const sidebarRoutes = filterAsyncRouter(sdata)
         const rewriteRoutes = filterAsyncRouter(rdata, false, true)
         const defaultRoutes = filterAsyncRouter(defaultData)
@@ -124,7 +128,7 @@ function filterChildren(childrenMap, lastRouter = false) {
 
 // 动态路由遍历，验证是否具备权限
 export function filterDynamicRoutes(routes) {
-  const res = []
+  const res: any = []
   routes.forEach((route) => {
     if (route.permissions) {
       if (auth.hasPermiOr(route.permissions)) {

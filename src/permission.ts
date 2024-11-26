@@ -5,6 +5,7 @@ import router from './common/router'
 import { getToken } from './common/utils/auth'
 import { isHttp } from './common/utils/validate'
 import useUserStore from './common/stores/user.store'
+import usePermissionStore from './common/stores/permission.store'
 
 NProgress.configure({ showSpinner: false })
 
@@ -27,7 +28,7 @@ router.beforeEach((to, from, next) => {
           .then(() => {
             usePermissionStore()
               .generateRoutes()
-              .then((accessRoutes) => {
+              .then((accessRoutes: any) => {
                 // 根据roles权限生成可访问的路由表
                 accessRoutes.forEach((route) => {
                   if (!isHttp(route.path)) {
